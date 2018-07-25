@@ -40,10 +40,17 @@ apt-get -y autoremove
 apt-get -y purge
 
 # as stuff
-apt -y install openssh-server
-systemctl enable openssh-server
-systemctl start openssh-server
-curl -s https://raw.githubusercontent.com/antonipx/cloud/master/run/ubuntu-run.sh | bash
+apt -yq install jq htop atop iotop iftop iperf3 dstat
+apt -yq install openssh-server
+mkdir /home/ubuntu/.ssh
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCQniDpP1+M1N0mUn8Eeg8cAlqK84TjXhe4BF5kD+XNa5iunGT7s8+PPhLb47pDQTPX+s1vhx5BuCysDDUQPeB43hAuUkDYH3OFWOSzYuaNzqpal3mjdz9bNf8Pjb+cIp0CQ2Q/iuDGjtYcHepuVbeD1DWhSGxG0WL8UPqzahLBl5gjPmjG8OUqxBv87PY9BrUsIA7eokCGwpANsA6z1DX+k0sPGfa2k6ZEEhnZf3jwI64Zx87girx+i/2yWfgXzi4ungkO6ufyGe0UfDvIs7M9r7hAoiM+G7OHnOEIKs+Z2JR74o2VKRHp3Smb+76b4anC7gyPopQq5vzDbaxz2wDT askey" >> /home/ubuntu/.ssh/authorized_keys
+chmod 600 /home/ubuntu/.ssh/authorized_keys
+chown -R ubuntu /home/ubuntu
+cd /usr/local/bin; curl https://getmic.ro | bash
+curl https://get.docker.com/ | bash
+swapoff -a
+sed -i -e '/swap/d' /etc/fstab
+chmod -x /etc/update-motd.d/*
 
 # remove myself to prevent any unintended changes at a later stage
 rm $0
