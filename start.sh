@@ -1,13 +1,5 @@
 #!/bin/bash
-set -e
-
-# set defaults
-default_hostname="$(hostname)"
-default_domain="netson.local"
-default_puppetmaster="foreman.netson.nl"
-tmp="/root/"
-
-clear
+#set -e
 
 # check for root privilege
 if [ "$(id -u)" != "0" ]; then
