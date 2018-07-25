@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # file names & paths
-tmp="$HOME"  # destination folder to store the final iso file
+tmp="$PWD"  # destination folder to store the final iso file
 hostname="ubuntu"
 currentuser="$( whoami)"
 
@@ -141,12 +141,12 @@ if [[ ! -f $tmp/$download_file ]]; then
     download "$download_location$download_file"
 fi
 if [[ ! -f $tmp/$download_file ]]; then
-	echo "Error: Failed to download ISO: $download_location$download_file"
-	echo "This file may have moved or may no longer exist."
-	echo
-	echo "You can download it manually and move it to $tmp/$download_file"
-	echo "Then run this script again."
-	exit 1
+    echo "Error: Failed to download ISO: $download_location$download_file"
+    echo "This file may have moved or may no longer exist."
+    echo
+    echo "You can download it manually and move it to $tmp/$download_file"
+    echo "Then run this script again."
+    exit 1
 fi
 
 # download netson seed file
