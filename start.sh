@@ -3,10 +3,10 @@ exec >/var/log/ubuntu-run.log 2>&1
 
 # update hostname
 hostname=$(vmware-rpctool "info-get guestinfo.hostname")
-echo "Hostname=$hostname"
-hostnamectl set-hostname $hostname
-sed -i "s@ubuntu.ubuntu@$fqdn@g" /etc/hosts
-sed -i "s@ubuntu@$hostname@g" /etc/hosts
+echo "$hostname" > /etc/hostname
+hostname "$hostname"
+#sed -i "s@ubuntu.ubuntu@$fqdn@g" /etc/hosts
+#sed -i "s@ubuntu@$hostname@g" /etc/hosts
 
 # update repos
 apt-get -y update
