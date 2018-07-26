@@ -26,10 +26,10 @@ hostname "$hostname"
 
 # update repos
 apt-get -y update
-apt-get -y upgrade
-apt-get -y dist-upgrade
-apt-get -y autoremove
-apt-get -y purge
+#apt-get -y upgrade
+#apt-get -y dist-upgrade
+#apt-get -y autoremove
+#apt-get -y purge
 
 # as stuff
 apt -yq install jq htop atop iotop iftop iperf3 dstat
