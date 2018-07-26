@@ -1,28 +1,11 @@
 #!/bin/bash
 #set -e
 
-# check for root privilege
-if [ "$(id -u)" != "0" ]; then
-   echo " this script must be run as root" 1>&2
-   echo
-   exit 1
-fi
-
-# determine ubuntu version
-ubuntu_version=$(lsb_release -cs)
-
-
-# print status message
-echo " preparing your server; this may take a few minutes ..."
-
-# set fqdn
-fqdn="$hostname.$domain"
-
 # update hostname
-echo "$hostname" > /etc/hostname
+hostname=$(vmware-rpctool "info-get guestinfo.hostname")
+hostnamectl set-hostname $hostname
 sed -i "s@ubuntu.ubuntu@$fqdn@g" /etc/hosts
 sed -i "s@ubuntu@$hostname@g" /etc/hosts
-hostname "$hostname"
 
 # update repos
 apt-get -y update
@@ -39,10 +22,11 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCQniDpP1+M1N0mUn8Eeg8cAlqK84TjXhe4BF
 chmod 600 /home/ubuntu/.ssh/authorized_keys
 chown -R ubuntu /home/ubuntu
 cd /usr/local/bin; curl https://getmic.ro | bash
-curl https://get.docker.com/ | bash
+curl -s https://get.docker.com/ | bash
 swapoff -a
 sed -i -e '/swap/d' /etc/fstab
 chmod -x /etc/update-motd.d/*
+echo "%sudo ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 # remove myself to prevent any unintended changes at a later stage
 rm $0
