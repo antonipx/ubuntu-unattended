@@ -28,11 +28,8 @@ sed -i -e '/swap/d' /etc/fstab
 chmod -x /etc/update-motd.d/*
 echo "%sudo ALL=NOPASSWD: ALL" >> /etc/sudoers
 
-# remove myself to prevent any unintended changes at a later stage
-rm $0
+chmod 0 $0
 
-# finish
 echo " DONE; rebooting ... "
 
-# reboot
 reboot
